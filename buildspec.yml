@@ -8,16 +8,16 @@ phases:
     commands:
       - echo Build started
       - echo Building the docker image
-      - docker build -t voting-app-vote -f ./Dockerfile .
+      - docker build -t voting-app-worker -f ./Dockerfile .
       - docker images
   post_build:
     commands:
      - echo build completed
      - echo pushing in to docker ECR...
-     - docker tag voting-app-vote:latest 405894864140.dkr.ecr.us-east-1.amazonaws.com/voting-app-vote:latest
-     - docker push 405894864140.dkr.ecr.us-east-1.amazonaws.com/voting-app-vote:latest
+     - docker tag voting-app-worker:latest 405894864140.dkr.ecr.us-east-1.amazonaws.com/voting-app-worker:latest
+     - docker push 405894864140.dkr.ecr.us-east-1.amazonaws.com/voting-app-worker:latest
      - echo Writing image definition file..
-     - printf '[{"name":"%s","imageUri":"%s"}]' "voting-app-vote" "405894864140.dkr.ecr.us-east-1.amazonaws.com/voting-app-vote" > imagedefinitions.json
+     - printf '[{"name":"%s","imageUri":"%s"}]' "voting-app-worker" "405894864140.dkr.ecr.us-east-1.amazonaws.com/voting-app-worker" > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
